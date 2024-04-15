@@ -1,5 +1,10 @@
 import Link from "next/link";
+import GameList from "~/components/GameList";
 
 export default function HomePage() {
-  return <main>sup</main>;
+  return (
+    <main>
+      <GameList />
+    </main>
+  );
 }

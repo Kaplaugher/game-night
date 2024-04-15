@@ -21,9 +21,9 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={`font-sans ${inter.variable}`}>
+      <body className={`font-sans ${inter.variable} flex flex-col gap-4`}>
         <Navbar />
-        {children}
+        <main className="container mx-auto px-4">{children}</main>
       </body>
     </html>
   );
