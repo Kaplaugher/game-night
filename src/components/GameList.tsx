@@ -3,7 +3,7 @@ import Link from "next/link";
 type Game = {
   id: number;
   title: string;
-  source: string;
+  image: string;
   description: string;
   price: string;
   createdAt: string;
