@@ -1,12 +1,18 @@
 "use client";
-import { Fragment } from "react";
-import { Disclosure, Menu, Transition } from "@headlessui/react";
-import { Bars3Icon, BellIcon, XMarkIcon } from "@heroicons/react/24/outline";
-import { SignInButton, SignedIn, SignedOut, UserButton } from "@clerk/nextjs";
+
+import { Disclosure } from "@headlessui/react";
+import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
+import { SignedOut, SignInButton, SignedIn, UserButton } from "@clerk/nextjs";
+import Link from "next/link";
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
 }
+
+const routes = [
+  { name: "Find Games", href: "/games/browse" },
+  { name: "Find GMs", href: "/gms/browse" },
+];
 
 export default function Navbar() {
   return (
@@ -26,30 +32,15 @@ export default function Navbar() {
                 <div className="hidden sm:ml-6 sm:block">
                   <div className="flex space-x-4">
                     {/* Current: "bg-gray-900 text-white", Default: "text-gray-300 hover:bg-gray-700 hover:text-white" */}
-                    <a
-                      href="#"
-                      className="rounded-md bg-gray-900 px-3 py-2 text-sm font-medium text-white"
-                    >
-                      Dashboard
-                    </a>
-                    <a
-                      href="#"
-                      className="rounded-md px-3 py-2 text-sm font-medium text-gray-300 hover:bg-gray-700 hover:text-white"
-                    >
-                      Team
-                    </a>
-                    <a
-                      href="#"
-                      className="rounded-md px-3 py-2 text-sm font-medium text-gray-300 hover:bg-gray-700 hover:text-white"
-                    >
-                      Projects
-                    </a>
-                    <a
-                      href="#"
-                      className="rounded-md px-3 py-2 text-sm font-medium text-gray-300 hover:bg-gray-700 hover:text-white"
-                    >
-                      Calendar
-                    </a>
+                    {routes.map((route) => (
+                      <Link
+                        key={route.name}
+                        href={route.href}
+                        className="block rounded-md px-3 py-2 text-base font-medium text-gray-300 hover:bg-gray-700 hover:text-white"
+                      >
+                        {route.name}
+                      </Link>
+                    ))}
                   </div>
                 </div>
               </div>
@@ -77,6 +68,31 @@ export default function Navbar() {
               </div>
             </div>
           </div>
+
+          <Disclosure.Panel className="sm:hidden">
+            <div className="space-y-1 px-2 pb-3 pt-2">
+              {/* Current: "bg-gray-900 text-white", Default: "text-gray-300 hover:bg-gray-700 hover:text-white" */}
+              {routes.map((route) => (
+                <Link
+                  key={route.name}
+                  href={route.href}
+                  className="block rounded-md px-3 py-2 text-base font-medium text-gray-300 hover:bg-gray-700 hover:text-white"
+                >
+                  {route.name}
+                </Link>
+              ))}
+            </div>
+            <div className="border-t border-gray-700 pb-3 pt-4">
+              <div className="flex items-center">
+                <SignedOut>
+                  <SignInButton />
+                </SignedOut>
+                <SignedIn>
+                  <UserButton />
+                </SignedIn>
+              </div>
+            </div>
+          </Disclosure.Panel>
         </>
       )}
     </Disclosure>
