@@ -1,4 +1,3 @@
-import Link from "next/link";
 import GameList from "~/components/GameList";
 import { db } from "~/server/db";
 
