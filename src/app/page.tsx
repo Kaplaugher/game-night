@@ -1,12 +1,10 @@
 import GameList from "~/components/GameList";
-import { db } from "~/server/db";
+
+import { getGames } from "~/server/queries";
 export const dynamic = "force-dynamic";
 
 export default async function HomePage() {
-  const games = await db.query.games.findMany({
-    orderBy: (model, { desc }) => desc(model.id),
-  });
-  console.log(games);
+  const games = await getGames();
   return (
     <main>
       <GameList games={games} />
