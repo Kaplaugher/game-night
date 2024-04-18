@@ -11,5 +11,9 @@ export default withUt({
       },
     },
   },
-  plugins: [require("@tailwindcss/aspect-ratio")],
+  plugins: [
+    require("@tailwindcss/aspect-ratio"),
+    require("@tailwindcss/typography"),
+    require("@tailwindcss/forms"),
+  ],
 }) satisfies Config;
