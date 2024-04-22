@@ -14,7 +14,7 @@ export default async function HomePage() {
               Host, Connect, and Adventure with Game Night
             </h1>
             <p className="p-regular-20 md:p-regular-24">
-              Book and join game nights with qualified Game Masters and players
+              Book and join game nights with qualified Game Masters
             </p>
             <Button size="lg" asChild className="button w-full sm:w-fit">
               <Link href="#events">Explore Now</Link>
