@@ -14,7 +14,9 @@ export default async function HomePage() {
               Host, Connect, and Adventure with Game Night
             </h1>
             <p className="p-regular-20 md:p-regular-24">
-              Book and join game nights with qualified Game Masters
+              Join the adventure and connect with fellow gamers from around the
+              world. Create or join online Dungeons & Dragons games, and embark
+              on thrilling quests from the comfort of your own home.
             </p>
             <Button size="lg" asChild className="button w-full sm:w-fit">
               <Link href="#events">Explore Now</Link>

@@ -23,10 +23,10 @@ export const createTable = pgTableCreator((name) => `game-night_${name}`);
 export const users = createTable("user", {
   clerkId: varchar("clerk_id").notNull(),
   email: varchar("email", { length: 256 }).notNull(),
-  username: varchar("username", { length: 256 }).notNull(),
-  image: varchar("image", { length: 1024 }).notNull(),
-  firstName: varchar("first_name", { length: 256 }).notNull(),
-  lastName: varchar("last_name", { length: 256 }).notNull(),
+  username: varchar("username", { length: 256 }),
+  image: varchar("image", { length: 1024 }),
+  firstName: varchar("first_name", { length: 256 }),
+  lastName: varchar("last_name", { length: 256 }),
 });
 
 export const games = createTable("game", {
