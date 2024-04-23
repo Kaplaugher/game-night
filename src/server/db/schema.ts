@@ -11,6 +11,7 @@ import {
   timestamp,
   varchar,
 } from "drizzle-orm/pg-core";
+import { url } from "inspector";
 
 /**
  * This is an example of how to use the multi-project schema feature of Drizzle ORM. Use the same
@@ -40,9 +41,10 @@ export const games = createTable("game", {
     .default(sql`CURRENT_TIMESTAMP`)
     .notNull(),
   updatedAt: timestamp("updatedAt"),
-  startTime: timestamp("start_time").notNull(),
-  endTime: timestamp("end_time").notNull(),
+  startDateTime: timestamp("start_time").notNull(),
+  endDateTime: timestamp("end_time").notNull(),
   organizer: integer("organizer")
     .references(() => users.clerkId, { onDelete: "cascade" })
     .notNull(),
+  url: varchar("url", { length: 1024 }),
 });
