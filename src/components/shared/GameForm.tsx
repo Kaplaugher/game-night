@@ -1,5 +1,6 @@
 "use client";
 
+import { useState } from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { Button } from "../ui/button";
@@ -20,7 +21,9 @@ import { Checkbox } from "../ui/checkbox";
 import { Textarea } from "../ui/textarea";
 import Dropdown from "./Dropdown";
 import { FileUploader } from "./FileUploader";
-import { useState } from "react";
+import DatePicker from "react-datepicker";
+
+import "react-datepicker/dist/react-datepicker.css";
 
 type GameFormProps = {
   userId: string;
@@ -175,14 +178,14 @@ export default function GameForm({ userId, type }: GameFormProps) {
                     <p className="text-grey-600 ml-3 whitespace-nowrap">
                       Start Date:
                     </p>
-                    {/* <DatePicker
+                    <DatePicker
                       selected={field.value}
                       onChange={(date: Date) => field.onChange(date)}
                       showTimeSelect
                       timeInputLabel="Time:"
                       dateFormat="MM/dd/yyyy h:mm aa"
                       wrapperClassName="datePicker"
-                    /> */}
+                    />
                   </div>
                 </FormControl>
                 <FormMessage />
@@ -207,14 +210,14 @@ export default function GameForm({ userId, type }: GameFormProps) {
                     <p className="text-grey-600 ml-3 whitespace-nowrap">
                       End Date:
                     </p>
-                    {/* <DatePicker
+                    <DatePicker
                       selected={field.value}
                       onChange={(date: Date) => field.onChange(date)}
                       showTimeSelect
                       timeInputLabel="Time:"
                       dateFormat="MM/dd/yyyy h:mm aa"
                       wrapperClassName="datePicker"
-                    /> */}
+                    />
                   </div>
                 </FormControl>
                 <FormMessage />
