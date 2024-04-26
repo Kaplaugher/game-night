@@ -2,7 +2,7 @@
 
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
-import { Button } from "./ui/button";
+import { Button } from "../ui/button";
 import {
   FormField,
   FormItem,
@@ -11,22 +11,31 @@ import {
   FormDescription,
   FormMessage,
   Form,
-} from "./ui/form";
-import { Input } from "./ui/input";
+} from "../ui/form";
+import { Input } from "../ui/input";
 import { gameFormSchema } from "~/lib/validator";
 import type { z } from "zod";
 import Image from "next/image";
-import { Checkbox } from "./ui/checkbox";
-import { Textarea } from "./ui/textarea";
+import { Checkbox } from "../ui/checkbox";
+import { Textarea } from "../ui/textarea";
+import Dropdown from "./Dropdown";
+import { FileUploader } from "./FileUploader";
+import { useState } from "react";
 
-export default function GameForm() {
+type GameFormProps = {
+  userId: string;
+  type: "create" | "update";
+};
+
+export default function GameForm({ userId, type }: GameFormProps) {
+  const [files, setFiles] = useState<File[]>([]);
   const initialFormValues = {
     title: "",
     description: "",
     location: "",
     image: "",
-    startDateTime: "",
-    endDateTime: "",
+    startDateTime: undefined,
+    endDateTime: undefined,
     categoryId: "",
     price: "",
     isFree: false,
@@ -59,7 +68,7 @@ export default function GameForm() {
               <FormItem className="w-full">
                 <FormControl>
                   <Input
-                    placeholder="Event title"
+                    placeholder="Game Title"
                     {...field}
                     className="input-field"
                   />
@@ -74,10 +83,10 @@ export default function GameForm() {
             render={({ field }) => (
               <FormItem className="w-full">
                 <FormControl>
-                  {/* <Dropdown
+                  <Dropdown
                     onChangeHandler={field.onChange}
                     value={field.value}
-                  /> */}
+                  />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -102,9 +111,9 @@ export default function GameForm() {
               </FormItem>
             )}
           />
-          {/* <FormField
+          <FormField
             control={form.control}
-            name="imageUrl"
+            name="image"
             render={({ field }) => (
               <FormItem className="w-full">
                 <FormControl className="h-72">
@@ -117,7 +126,7 @@ export default function GameForm() {
                 <FormMessage />
               </FormItem>
             )}
-          /> */}
+          />
         </div>
 
         <div className="flex flex-col gap-5 md:flex-row">

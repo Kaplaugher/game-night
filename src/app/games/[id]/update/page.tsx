@@ -1,4 +1,4 @@
-import GameForm from "~/components/GameForm";
+import GameForm from "~/components/shared/GameForm";
 import { auth } from "@clerk/nextjs/server";
 
 const UpdateGame = async () => {
