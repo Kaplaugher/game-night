@@ -37,7 +37,7 @@ export default function GameForm({ userId, type }: GameFormProps) {
     image: "",
     startDateTime: undefined,
     endDateTime: undefined,
-    categoryId: "",
+    game: "",
     price: "",
     isFree: false,
     url: "",
@@ -80,7 +80,7 @@ export default function GameForm({ userId, type }: GameFormProps) {
           />
           <FormField
             control={form.control}
-            name="categoryId"
+            name="gameType"
             render={({ field }) => (
               <FormItem className="w-full">
                 <FormControl>
@@ -269,31 +269,6 @@ export default function GameForm({ userId, type }: GameFormProps) {
                           <FormMessage />
                         </FormItem>
                       )}
-                    />
-                  </div>
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-          <FormField
-            control={form.control}
-            name="url"
-            render={({ field }) => (
-              <FormItem className="w-full">
-                <FormControl>
-                  <div className="flex-center  h-[54px] w-full overflow-hidden rounded-full px-4 py-2">
-                    <Image
-                      src="/assets/icons/link.svg"
-                      alt="link"
-                      width={24}
-                      height={24}
-                    />
-
-                    <Input
-                      placeholder="URL"
-                      {...field}
-                      className="input-field"
                     />
                   </div>
                 </FormControl>

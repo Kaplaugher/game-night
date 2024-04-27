@@ -4,14 +4,12 @@
 import { sql } from "drizzle-orm";
 import {
   boolean,
-  integer,
   numeric,
   pgTableCreator,
   serial,
   timestamp,
   varchar,
 } from "drizzle-orm/pg-core";
-import { url } from "inspector";
 
 /**
  * This is an example of how to use the multi-project schema feature of Drizzle ORM. Use the same
@@ -22,12 +20,18 @@ import { url } from "inspector";
 export const createTable = pgTableCreator((name) => `game-night_${name}`);
 
 export const users = createTable("user", {
+  id: serial("id").primaryKey(),
   clerkId: varchar("clerk_id").notNull(),
   email: varchar("email", { length: 256 }).notNull(),
   username: varchar("username", { length: 256 }),
   image: varchar("image", { length: 1024 }),
   firstName: varchar("first_name", { length: 256 }),
   lastName: varchar("last_name", { length: 256 }),
+});
+
+export const gameTypes = createTable("game_type", {
+  id: varchar("id").primaryKey(),
+  name: varchar("name", { length: 256 }),
 });
 
 export const games = createTable("game", {
@@ -43,8 +47,8 @@ export const games = createTable("game", {
   updatedAt: timestamp("updatedAt"),
   startDateTime: timestamp("start_time").notNull(),
   endDateTime: timestamp("end_time").notNull(),
-  organizer: integer("organizer")
-    .references(() => users.clerkId, { onDelete: "cascade" })
+  organizer: varchar("organizer")
+    .references(() => users.clerkId)
     .notNull(),
-  url: varchar("url", { length: 1024 }),
+  gameType: varchar("game_type").references(() => gameTypes.id),
 });

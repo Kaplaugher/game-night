@@ -18,78 +18,92 @@ import {
 } from "../ui/alert-dialog";
 import { AlertDialogHeader, AlertDialogFooter } from "../ui/alert-dialog";
 import { Input } from "../ui/input";
+import { createGameType, getGameTypes } from "~/server/actions";
 
 type DropdownProps = {
   onChangeHandler?: () => void;
   value?: string;
 };
-// generate an array of the top 10 table top game categories
+
+type GameType = {
+  id: string;
+  name: string;
+};
+
+const test = [
+  {
+    id: 1,
+    name: "test",
+  },
+  {
+    id: 2,
+    name: "test2",
+  },
+];
 
 const Dropdown = ({ onChangeHandler, value }: DropdownProps) => {
-  const [categories, setCategories] = useState([
-    { _id: "1", name: "Category 1" },
-    { _id: "2", name: "Category 2" },
-    { _id: "3", name: "Category 3" },
-    { _id: "4", name: "Category 4" },
-  ]);
-  const [newCategory, setNewCategory] = useState("");
+  const [gameTypes, setGameTypes] = useState([] as GameType[]);
+  const [newGameType, setNewGameType] = useState("");
 
-  // const handleAddCategory = () => {
-  //   createCategory({
-  //     categoryName: newCategory.trim(),
-  //   }).then((category) => {
-  //     setCategories((prevState) => [...prevState, category]);
-  //   });
-  // };
+  const handleAddGameType = () => {
+    createGameType({ name: newGameType.trim() })
+      .then((gameType) => {
+        setGameTypes((prev) => [...prev, gameType]);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  };
 
-  // useEffect(() => {
-  //   const getCategories = async () => {
-  //     const categoryList = await getAllCategories();
+  useEffect(() => {
+    const fetchGameTypes = async () => {
+      const gameTypeList = await getGameTypes();
+      console.log("asfasfdasf", gameTypeList);
+      setGameTypes(gameTypeList);
+    };
 
-  //     categoryList && setCategories(categoryList as ICategory[]);
-  //   };
-
-  //   getCategories();
-  // }, []);
+    fetchGameTypes();
+  }, []);
   return (
     <Select onValueChange={onChangeHandler} defaultValue={value}>
       <SelectTrigger className="select-field">
-        <SelectValue placeholder="Theme" />
+        <SelectValue placeholder="Game Type" />
       </SelectTrigger>
       <SelectContent>
-        {categories.length > 0 &&
-          categories.map((category) => (
+        {gameTypes.length > 0 &&
+          gameTypes.map((gameType) => (
             <SelectItem
-              key={category._id}
-              value={category._id}
+              key={gameType.id}
+              value={gameType.id}
               className="select-item p-regular-14"
             >
-              {category.name}
+              {gameType.name}
             </SelectItem>
           ))}
+
         <AlertDialog>
-          <AlertDialogTrigger className="p-medium-14 flex w-full rounded-sm py-3 pl-8 text-gray-500 hover:bg-gray-50 focus:text-gray-500">
-            Add new category
+          <AlertDialogTrigger className="p-medium-14 text-primary-500 hover:bg-primary-50 focus:text-primary-500 flex w-full rounded-sm py-3 pl-8">
+            Add new game type
           </AlertDialogTrigger>
           <AlertDialogContent className="bg-white">
             <AlertDialogHeader>
-              <AlertDialogTitle>New Category</AlertDialogTitle>
+              <AlertDialogTitle>New Game Type</AlertDialogTitle>
               <AlertDialogDescription>
                 <Input
                   type="text"
-                  placeholder="Category name"
+                  placeholder="Enter game type"
                   className="input-field mt-3"
-                  onChange={(e) => setNewCategory(e.target.value)}
+                  onChange={(e) => setNewGameType(e.target.value)}
                 />
               </AlertDialogDescription>
             </AlertDialogHeader>
             <AlertDialogFooter>
               <AlertDialogCancel>Cancel</AlertDialogCancel>
-              {/* <AlertDialogAction
-                onClick={() => startTransition(handleAddCategory)}
+              <AlertDialogAction
+                onClick={() => startTransition(handleAddGameType)}
               >
                 Add
-              </AlertDialogAction> */}
+              </AlertDialogAction>
             </AlertDialogFooter>
           </AlertDialogContent>
         </AlertDialog>

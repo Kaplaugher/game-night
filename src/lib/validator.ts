@@ -13,8 +13,7 @@ export const gameFormSchema = z.object({
   image: z.string().url(),
   startDateTime: z.date(),
   endDateTime: z.date(),
-  categoryId: z.string(),
+  gameType: z.string(),
   price: z.string(),
   isFree: z.boolean(),
-  url: z.string().url(),
 });

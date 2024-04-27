@@ -1,8 +1,3 @@
-import Image from "next/image";
-import Link from "next/link";
-import { Button } from "~/components/ui/button";
-import { getGames } from "~/server/queries";
-import { ChevronRightIcon } from "@heroicons/react/20/solid";
 export const dynamic = "force-dynamic";
 
 import {
@@ -51,9 +46,9 @@ export default async function HomePage() {
             <p className="mt-6 text-lg leading-8 text-gray-600">
               At Long Rest Inn and Tavern, we bring together wandering
               adventurers who wish to dive into a thrilling quest without the
-              long-term commitments. Whether you're a seasoned dungeon crawler
-              or a curious newcomer, our doors are open for an evening filled
-              with magic, monsters, and memorable camaraderie.
+              long-term commitments. Whether you&apos;re a seasoned dungeon
+              crawler or a curious newcomer, our doors are open for an evening
+              filled with magic, monsters, and memorable camaraderie.
             </p>
             <div className="mt-10 flex items-center gap-x-6">
               <a
@@ -96,7 +91,7 @@ export default async function HomePage() {
                   Quick Quests, Lasting Memories
                 </h2>
                 <p className="mt-6 text-lg leading-8 text-gray-600">
-                  Don't have the time for an extended campaign? No problem!
+                  Don&apos;t have the time for an extended campaign? No problem!
                   Choose from a curated selection of one-shot adventures that
                   you can start and finish in just one evening. Our quests are
                   designed to pack epic stories, challenging puzzles, and fierce
