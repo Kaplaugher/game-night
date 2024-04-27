@@ -4,7 +4,6 @@
 import { sql } from "drizzle-orm";
 import {
   boolean,
-  numeric,
   pgTableCreator,
   serial,
   timestamp,
@@ -30,7 +29,7 @@ export const users = createTable("user", {
 });
 
 export const gameTypes = createTable("game_type", {
-  id: varchar("id").primaryKey(),
+  id: serial("id").primaryKey(),
   name: varchar("name", { length: 256 }),
 });
 
@@ -38,7 +37,7 @@ export const games = createTable("game", {
   id: serial("id").primaryKey(),
   title: varchar("title", { length: 256 }),
   description: varchar("description"),
-  price: numeric("price"),
+  price: varchar("price"),
   isFree: boolean("is_free").notNull(),
   image: varchar("image", { length: 1024 }).notNull(),
   createdAt: timestamp("created_at")
@@ -50,5 +49,5 @@ export const games = createTable("game", {
   organizer: varchar("organizer")
     .references(() => users.clerkId)
     .notNull(),
-  gameType: varchar("game_type").references(() => gameTypes.id),
+  gameType: serial("game_type").references(() => gameTypes.id),
 });

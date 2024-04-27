@@ -4,6 +4,7 @@ import { auth } from "@clerk/nextjs/server";
 const CreateGame = async () => {
   // Get the userId from auth() -- if null, the user is not signed in
   const { userId } = auth();
+  console.log(userId);
 
   return (
     <>

@@ -37,10 +37,11 @@ const Dropdown = ({ onChangeHandler, value }: DropdownProps) => {
   const handleAddGameType = () => {
     createGameType({ name: newGameType.trim() })
       .then((gameType) => {
+        console.log("gameType", gameType);
         setGameTypes((prev) => [...prev, gameType]);
       })
       .catch((error) => {
-        console.error(error);
+        console.error("error with create type", error);
       });
   };
 
@@ -62,8 +63,8 @@ const Dropdown = ({ onChangeHandler, value }: DropdownProps) => {
         {gameTypes.length > 0 &&
           gameTypes.map((gameType) => (
             <SelectItem
-              key={gameType.id}
-              value={gameType.id}
+              key={gameType.id.toString()}
+              value={gameType.id.toString()}
               className="select-item p-regular-14"
             >
               {gameType.name}

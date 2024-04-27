@@ -28,7 +28,7 @@ import { useUploadThing } from "~/lib/uploadthing";
 import { handleError } from "~/lib/utils";
 
 type GameFormProps = {
-  userId: string;
+  userId: string | null;
   type: "create" | "update";
 };
 
@@ -68,7 +68,7 @@ export default function GameForm({ userId, type }: GameFormProps) {
     if (type === "create") {
       try {
         const newGame = await createGame({
-          game: { ...values, image: uploadedImageUrl },
+          game: { ...values, imageUrl: uploadedImageUrl },
           userId,
           path: "/profile",
         });
