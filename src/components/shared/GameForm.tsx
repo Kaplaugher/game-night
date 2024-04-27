@@ -7,9 +7,7 @@ import { Button } from "../ui/button";
 import {
   FormField,
   FormItem,
-  FormLabel,
   FormControl,
-  FormDescription,
   FormMessage,
   Form,
 } from "../ui/form";
@@ -167,15 +165,15 @@ export default function GameForm({ userId, type }: GameFormProps) {
             render={({ field }) => (
               <FormItem className="w-full">
                 <FormControl>
-                  <div className="flex-center  h-[54px] w-full overflow-hidden rounded-full px-4 py-2">
+                  <div className="flex-center h-[54px] w-full overflow-hidden rounded-full px-4 py-2">
                     <Image
                       src="/assets/icons/calendar.svg"
                       alt="calendar"
                       width={24}
                       height={24}
-                      className="filter-grey"
+                      className="filter-gray"
                     />
-                    <p className="text-grey-600 ml-3 whitespace-nowrap">
+                    <p className="ml-3 whitespace-nowrap text-gray-600">
                       Start Date:
                     </p>
                     <DatePicker
@@ -205,9 +203,9 @@ export default function GameForm({ userId, type }: GameFormProps) {
                       alt="calendar"
                       width={24}
                       height={24}
-                      className="filter-grey"
+                      className="filter-gray"
                     />
-                    <p className="text-grey-600 ml-3 whitespace-nowrap">
+                    <p className="ml-3 whitespace-nowrap text-gray-600">
                       End Date:
                     </p>
                     <DatePicker
@@ -233,19 +231,19 @@ export default function GameForm({ userId, type }: GameFormProps) {
             render={({ field }) => (
               <FormItem className="w-full">
                 <FormControl>
-                  <div className="flex-center  h-[54px] w-full overflow-hidden rounded-full px-4 py-2">
+                  <div className="flex-center h-[54px] w-full overflow-hidden rounded-full bg-gray-50 px-4 py-2">
                     <Image
                       src="/assets/icons/dollar.svg"
                       alt="dollar"
                       width={24}
                       height={24}
-                      className="filter-grey"
+                      className="filter-gray"
                     />
                     <Input
                       type="number"
                       placeholder="Price"
                       {...field}
-                      className="p-regular-16  border-0 outline-offset-0 focus:border-0 focus-visible:ring-0 focus-visible:ring-offset-0"
+                      className="p-regular-16 border-0 bg-gray-50 outline-offset-0 focus:border-0 focus-visible:ring-0 focus-visible:ring-offset-0"
                     />
                     <FormField
                       control={form.control}

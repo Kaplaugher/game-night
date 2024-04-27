@@ -34,23 +34,23 @@ const Dropdown = ({ onChangeHandler, value }: DropdownProps) => {
   ]);
   const [newCategory, setNewCategory] = useState("");
 
-  const handleAddCategory = () => {
-    createCategory({
-      categoryName: newCategory.trim(),
-    }).then((category) => {
-      setCategories((prevState) => [...prevState, category]);
-    });
-  };
+  // const handleAddCategory = () => {
+  //   createCategory({
+  //     categoryName: newCategory.trim(),
+  //   }).then((category) => {
+  //     setCategories((prevState) => [...prevState, category]);
+  //   });
+  // };
 
-  useEffect(() => {
-    const getCategories = async () => {
-      const categoryList = await getAllCategories();
+  // useEffect(() => {
+  //   const getCategories = async () => {
+  //     const categoryList = await getAllCategories();
 
-      categoryList && setCategories(categoryList as ICategory[]);
-    };
+  //     categoryList && setCategories(categoryList as ICategory[]);
+  //   };
 
-    getCategories();
-  }, []);
+  //   getCategories();
+  // }, []);
   return (
     <Select onValueChange={onChangeHandler} defaultValue={value}>
       <SelectTrigger className="select-field">
@@ -85,11 +85,11 @@ const Dropdown = ({ onChangeHandler, value }: DropdownProps) => {
             </AlertDialogHeader>
             <AlertDialogFooter>
               <AlertDialogCancel>Cancel</AlertDialogCancel>
-              <AlertDialogAction
+              {/* <AlertDialogAction
                 onClick={() => startTransition(handleAddCategory)}
               >
                 Add
-              </AlertDialogAction>
+              </AlertDialogAction> */}
             </AlertDialogFooter>
           </AlertDialogContent>
         </AlertDialog>
