@@ -30,17 +30,6 @@ type GameType = {
   name: string;
 };
 
-const test = [
-  {
-    id: 1,
-    name: "test",
-  },
-  {
-    id: 2,
-    name: "test2",
-  },
-];
-
 const Dropdown = ({ onChangeHandler, value }: DropdownProps) => {
   const [gameTypes, setGameTypes] = useState([] as GameType[]);
   const [newGameType, setNewGameType] = useState("");

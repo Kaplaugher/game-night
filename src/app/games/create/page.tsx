@@ -14,7 +14,7 @@ const CreateGame = async () => {
       </section>
 
       <div className="wrapper my-8">
-        <GameForm userId={userId} type="Create" />
+        <GameForm userId={userId} type="create" />
       </div>
     </>
   );

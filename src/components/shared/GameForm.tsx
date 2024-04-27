@@ -22,6 +22,10 @@ import { FileUploader } from "./FileUploader";
 import DatePicker from "react-datepicker";
 
 import "react-datepicker/dist/react-datepicker.css";
+import { createGame } from "~/server/actions";
+import { useRouter } from "next/navigation";
+import { useUploadThing } from "~/lib/uploadthing";
+import { handleError } from "~/lib/utils";
 
 type GameFormProps = {
   userId: string;
@@ -30,6 +34,8 @@ type GameFormProps = {
 
 export default function GameForm({ userId, type }: GameFormProps) {
   const [files, setFiles] = useState<File[]>([]);
+  const { startUpload } = useUploadThing("imageUploader");
+  const router = useRouter();
   const initialFormValues = {
     title: "",
     description: "",
@@ -37,7 +43,7 @@ export default function GameForm({ userId, type }: GameFormProps) {
     image: "",
     startDateTime: undefined,
     endDateTime: undefined,
-    game: "",
+    gameType: "",
     price: "",
     isFree: false,
     url: "",
@@ -49,10 +55,31 @@ export default function GameForm({ userId, type }: GameFormProps) {
   });
 
   // 2. Define a submit handler.
-  function onSubmit(values: z.infer<typeof gameFormSchema>) {
-    // Do something with the form values.
-    // ✅ This will be type-safe and validated.
-    console.log(values);
+  async function onSubmit(values: z.infer<typeof gameFormSchema>) {
+    let uploadedImageUrl = values.image;
+    if (files.length > 0) {
+      const uploadedImages = await startUpload(files);
+      if (!uploadedImages) {
+        return;
+      } else {
+        uploadedImageUrl = uploadedImages[0].url;
+      }
+    }
+    if (type === "create") {
+      try {
+        const newGame = await createGame({
+          game: { ...values, image: uploadedImageUrl },
+          userId,
+          path: "/profile",
+        });
+        if (newGame) {
+          form.reset();
+          router.push(`/games/${newGame.id}`);
+        }
+      } catch (error) {
+        handleError(error);
+      }
+    }
   }
 
   return (
