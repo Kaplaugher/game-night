@@ -51,8 +51,8 @@ export type UpdateEventParams = {
   path: string;
 };
 
-export type DeleteEventParams = {
-  eventId: string;
+export type DeleteGameParams = {
+  gameId: string;
   path: string;
 };
 

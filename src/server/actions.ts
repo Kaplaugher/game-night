@@ -5,6 +5,7 @@ import "server-only";
 import { handleError } from "~/lib/utils";
 import { db } from "~/server/db";
 import { gameTypes, games, users } from "~/server/db/schema";
+import { DeleteGameParams } from "~/types";
 
 export type CreateGameType = {
   name: string;
@@ -42,6 +43,31 @@ export const createGame = async ({ game, userId, path }: CreateGameParams) => {
     console.error(error);
   }
 };
+
+// GET ONE GAME BY ID
+export async function getGameById(gameId: string) {
+  try {
+    const game = await db.query.games.findFirst({
+      where: eq(games.id, gameId),
+    });
+
+    if (!game) throw new Error("Event not found");
+
+    return JSON.parse(JSON.stringify(game));
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+// DELETE
+export async function deleteGame({ gameId, path }: DeleteGameParams) {
+  try {
+    const deletedGame = await db.delete(games).where(eq(games.id, gameId));
+    if (deletedGame) revalidatePath(path);
+  } catch (error) {
+    console.error(error);
+  }
+}
 
 export async function getGames() {
   const games = await db.query.games.findMany({
