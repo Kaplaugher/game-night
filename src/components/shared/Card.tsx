@@ -2,6 +2,8 @@ import Link from "next/link";
 import { formatDateTime } from "~/lib/utils";
 import { Badge } from "../ui/badge";
 import Image from "next/image";
+import { DeleteConfirmation } from "./DeleteConfirmation";
+import { auth } from "@clerk/nextjs/server";
 
 type CardProps = {
   data: {
@@ -15,6 +17,7 @@ type CardProps = {
       gameType: string;
       price: string;
       isFree: boolean;
+      organizer: string;
     };
     user: {
       id: string;
@@ -28,11 +31,13 @@ type CardProps = {
 };
 
 const Card = ({ data, hasOrderLink, hidePrice }: CardProps) => {
+  const { userId } = auth();
+  const isEventCreator = userId === data.game.organizer;
   return (
-    <Link href={`/games/${data.game.id}`}>
+    <div>
       <article
         key={data.game.id}
-        className="flex flex-col items-start justify-between"
+        className=" flex flex-col items-start justify-between"
       >
         <div className="relative w-full">
           <Image
@@ -42,6 +47,22 @@ const Card = ({ data, hasOrderLink, hidePrice }: CardProps) => {
             alt=""
             className="aspect-[16/9] w-full rounded-2xl bg-gray-100 object-cover sm:aspect-[2/1] lg:aspect-[3/2]"
           />
+          {/* IS EVENT CREATOR ... */}
+
+          {isEventCreator && !hidePrice && (
+            <div className="absolute right-2 top-2 z-10 flex flex-col gap-4 rounded-xl bg-white p-3 shadow-sm transition-all">
+              <Link href={`/games/${data.game.id}/update`}>
+                <Image
+                  src="/assets/icons/edit.svg"
+                  alt="edit"
+                  width={20}
+                  height={20}
+                />
+              </Link>
+
+              <DeleteConfirmation gameId={data.game.id} />
+            </div>
+          )}
           <div className="absolute inset-0 rounded-2xl ring-1 ring-inset ring-gray-900/10" />
         </div>
         <div>
@@ -53,7 +74,7 @@ const Card = ({ data, hasOrderLink, hidePrice }: CardProps) => {
             </div>
           )}
         </div>
-        <div className="w-full">
+        <Link href={`/games/${data.game.id}`} className="w-full">
           <div className="mt-4 flex justify-between text-xs">
             <div className="flex flex-col ">
               <p>
@@ -108,9 +129,9 @@ const Card = ({ data, hasOrderLink, hidePrice }: CardProps) => {
               <p className="text-gray-600">Game Master</p>
             </div>
           </div>
-        </div>
+        </Link>
       </article>
-    </Link>
+    </div>
   );
 };
 
