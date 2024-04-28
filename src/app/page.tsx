@@ -6,6 +6,7 @@ import {
   ServerIcon,
 } from "@heroicons/react/20/solid";
 import Collection from "~/components/shared/Collection";
+import { getGames } from "~/server/actions";
 
 const features = [
   {
@@ -33,6 +34,12 @@ const features = [
 ];
 
 export default async function HomePage() {
+  const games = await getGames({
+    query: "",
+    gameType: "all",
+    page: 1,
+    pageSize: 6,
+  });
   return (
     <>
       <div className="relative isolate overflow-hidden ">
@@ -128,7 +135,15 @@ export default async function HomePage() {
         </div>
       </section>
       <section>
-        <Collection />
+        <Collection
+          data={games}
+          emptyTitle="No Games Found"
+          emptyStateSubtext="Come back later"
+          collectionType="All_Games"
+          limit={6}
+          page={1}
+          totalPages={2}
+        />
       </section>
     </>
   );

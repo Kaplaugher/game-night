@@ -71,12 +71,16 @@ export async function deleteGame({ gameId, path }: DeleteGameParams) {
   }
 }
 
-export async function getGames() {
-  const games = await db.query.games.findMany({
-    orderBy: (model, { desc }) => desc(model.id),
-  });
-  return games;
-}
+export const getGames = async ({ query, pageSize = 6, page = 1, gameType }) => {
+  const allGames = await db
+    .select()
+    .from(games)
+    .orderBy(games.createdAt)
+    .limit(pageSize)
+    .offset((page - 1) * pageSize)
+    .leftJoin(users, eq(games.organizer, users.clerkId));
+  return allGames;
+};
 
 export async function getGameTypes() {
   const gameTypes = await db.query.gameTypes.findMany({
