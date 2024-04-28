@@ -62,13 +62,15 @@ export default function GameForm({ userId, type }: GameFormProps) {
       if (!uploadedImages) {
         return;
       } else {
+        console.log("uploadedImages", uploadedImages);
+        console.log("image url", uploadedImages[0].url);
         uploadedImageUrl = uploadedImages[0].url;
       }
     }
     if (type === "create") {
       try {
         const newGame = await createGame({
-          game: { ...values, imageUrl: uploadedImageUrl },
+          game: { ...values, image: uploadedImageUrl },
           userId,
           path: "/profile",
         });

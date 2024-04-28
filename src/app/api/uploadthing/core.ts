@@ -2,8 +2,6 @@
 import { auth } from "@clerk/nextjs/server";
 import { createUploadthing, type FileRouter } from "uploadthing/next";
 import { UploadThingError } from "uploadthing/server";
-import { db } from "~/server/db";
-import { games } from "~/server/db/schema";
 
 const f = createUploadthing();
 

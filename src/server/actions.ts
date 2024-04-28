@@ -47,9 +47,11 @@ export const createGame = async ({ game, userId, path }: CreateGameParams) => {
 // GET ONE GAME BY ID
 export async function getGameById(gameId: string) {
   try {
-    const game = await db.query.games.findFirst({
-      where: eq(games.id, gameId),
-    });
+    const game = await db
+      .select()
+      .from(games)
+      .where(eq(games.id, gameId))
+      .leftJoin(users, eq(games.organizer, users.clerkId));
 
     if (!game) throw new Error("Event not found");
 
@@ -81,6 +83,22 @@ export async function getGameTypes() {
     orderBy: (model, { desc }) => desc(model.name),
   });
   return gameTypes;
+}
+
+// GET ONE GAME BY ID
+export async function getGameTypeById(gameTypeId: string) {
+  try {
+    const gameType = await db
+      .select()
+      .from(gameTypes)
+      .where(eq(gameTypes.id, gameTypeId));
+
+    if (!gameType) throw new Error("Event not found");
+
+    return JSON.parse(JSON.stringify(gameType));
+  } catch (error) {
+    console.error(error);
+  }
 }
 
 export const createGameType = async (gameType: CreateGameType) => {
