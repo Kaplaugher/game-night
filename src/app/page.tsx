@@ -5,6 +5,7 @@ import {
   LockClosedIcon,
   ServerIcon,
 } from "@heroicons/react/20/solid";
+import Collection from "~/components/shared/Collection";
 
 const features = [
   {
@@ -53,7 +54,7 @@ export default async function HomePage() {
             <div className="mt-10 flex items-center gap-x-6">
               <a
                 href="#"
-                className="rounded-md bg-indigo-600 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+                className="rounded-md bg-red-600 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-red-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-red-600"
               >
                 Get started
               </a>
@@ -87,7 +88,7 @@ export default async function HomePage() {
           <div className="mx-auto grid max-w-2xl grid-cols-1 gap-x-8 gap-y-16 sm:gap-y-20 lg:mx-0 lg:max-w-none lg:grid-cols-2">
             <div className="lg:ml-auto lg:pl-4 lg:pt-4">
               <div className="lg:max-w-lg">
-                <h2 className="text-base font-semibold leading-7 text-indigo-600">
+                <h2 className="text-base font-semibold leading-7 text-red-600">
                   Quick Quests, Lasting Memories
                 </h2>
                 <p className="mt-6 text-lg leading-8 text-gray-600">
@@ -103,7 +104,7 @@ export default async function HomePage() {
                     <div key={feature.name} className="relative pl-9">
                       <dt className="inline font-semibold text-gray-900">
                         <feature.icon
-                          className="absolute left-1 top-1 h-5 w-5 text-indigo-600"
+                          className="absolute left-1 top-1 h-5 w-5 text-red-600"
                           aria-hidden="true"
                         />
                         {feature.name}
@@ -125,6 +126,9 @@ export default async function HomePage() {
             </div>
           </div>
         </div>
+      </section>
+      <section>
+        <Collection />
       </section>
     </>
   );

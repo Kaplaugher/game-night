@@ -20,7 +20,7 @@ export default function GameList({ games }: { games: Game[] }) {
         <li key={game.id} className="relative">
           <Link
             href={`/games/${game.id}`}
-            className="group aspect-h-16 aspect-w-16 block w-full overflow-hidden rounded-lg bg-gray-100 focus-within:ring-2 focus-within:ring-indigo-500 focus-within:ring-offset-2 focus-within:ring-offset-gray-100"
+            className="aspect-h-16 aspect-w-16 group block w-full overflow-hidden rounded-lg bg-gray-100 focus-within:ring-2 focus-within:ring-red-500 focus-within:ring-offset-2 focus-within:ring-offset-gray-100"
           >
             <img
               src="https://source.unsplash.com/random"

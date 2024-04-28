@@ -98,7 +98,7 @@ export default async function GamePage({
                   {game.game.title}
                 </h1>
 
-                <h2 className=" font-bold text-indigo-600">{gameType.name}</h2>
+                <h2 className=" font-bold text-red-600">{gameType.name}</h2>
 
                 <h2 id="information-heading" className="sr-only">
                   Game Information
@@ -153,13 +153,13 @@ export default async function GamePage({
             <div className="mt-10 grid grid-cols-1 gap-x-6 gap-y-4 sm:grid-cols-2">
               <button
                 type="button"
-                className="flex w-full items-center justify-center rounded-md border border-transparent bg-indigo-600 px-8 py-3 text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 focus:ring-offset-gray-50"
+                className="flex w-full items-center justify-center rounded-md border border-transparent bg-red-600 px-8 py-3 text-base font-medium text-white hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2 focus:ring-offset-gray-50"
               >
                 {game.game.isFree ? "Free" : `$${game.game.price}`}
               </button>
               <button
                 type="button"
-                className="flex w-full items-center justify-center rounded-md border border-transparent bg-indigo-50 px-8 py-3 text-base font-medium text-indigo-700 hover:bg-indigo-100 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 focus:ring-offset-gray-50"
+                className="flex w-full items-center justify-center rounded-md border border-transparent bg-indigo-50 px-8 py-3 text-base font-medium text-red-700 hover:bg-indigo-100 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2 focus:ring-offset-gray-50"
               >
                 Preview
               </button>
@@ -184,7 +184,7 @@ export default async function GamePage({
             <h2 className="text-lg font-medium text-gray-900">Similar Games</h2>
             <a
               href="#"
-              className="whitespace-nowrap text-sm font-medium text-indigo-600 hover:text-indigo-500"
+              className="whitespace-nowrap text-sm font-medium text-red-600 hover:text-red-500"
             >
               View all
               <span aria-hidden="true"> &rarr;</span>
