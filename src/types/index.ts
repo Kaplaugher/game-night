@@ -76,26 +76,18 @@ export type GetRelatedEventsByCategoryParams = {
   page: number | string;
 };
 
-export type Event = {
-  _id: string;
+export type Game = {
+  id: string;
   title: string;
   description: string;
   price: string;
   isFree: boolean;
-  imageUrl: string;
+  image: string;
   location: string;
   startDateTime: Date;
   endDateTime: Date;
-  url: string;
-  organizer: {
-    _id: string;
-    firstName: string;
-    lastName: string;
-  };
-  category: {
-    _id: string;
-    name: string;
-  };
+  organizer: string;
+  category: number;
 };
 
 // ====== CATEGORY PARAMS

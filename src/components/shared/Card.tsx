@@ -1,8 +1,9 @@
 import Link from "next/link";
 import { formatDateTime } from "~/lib/utils";
 import { Badge } from "../ui/badge";
+import Image from "next/image";
 
-type dataType = {
+type CardProps = {
   data: {
     game: {
       id: string;
@@ -12,6 +13,8 @@ type dataType = {
       startDateTime: Date;
       endDateTime: Date;
       gameType: string;
+      price: string;
+      isFree: boolean;
     };
     user: {
       id: string;
@@ -20,9 +23,11 @@ type dataType = {
       image: string;
     };
   };
+  hasOrderLink: boolean;
+  hidePrice: boolean;
 };
 
-const Card = ({ data }: dataType) => {
+const Card = ({ data, hasOrderLink, hidePrice }: CardProps) => {
   return (
     <Link href={`/games/${data.game.id}`}>
       <article
@@ -30,15 +35,26 @@ const Card = ({ data }: dataType) => {
         className="flex flex-col items-start justify-between"
       >
         <div className="relative w-full">
-          <img
+          <Image
             src={data.game.image}
+            height={400}
+            width={400}
             alt=""
             className="aspect-[16/9] w-full rounded-2xl bg-gray-100 object-cover sm:aspect-[2/1] lg:aspect-[3/2]"
           />
           <div className="absolute inset-0 rounded-2xl ring-1 ring-inset ring-gray-900/10" />
         </div>
-        <div className="max-w-xl">
-          <div className="mt-8 flex items-center gap-x-4 text-xs">
+        <div>
+          {!hidePrice && (
+            <div className="mt-4 flex gap-2">
+              <span className="p-semibold-14 text-green-60 w-min rounded-full bg-green-100 px-4 py-1">
+                {data.game.isFree ? "FREE" : `$${data.game.price}`}
+              </span>
+            </div>
+          )}
+        </div>
+        <div className="w-full">
+          <div className="mt-4 flex justify-between text-xs">
             <div className="flex flex-col ">
               <p>
                 {formatDateTime(data.game.startDateTime).dateOnly} -{" "}
@@ -49,9 +65,9 @@ const Card = ({ data }: dataType) => {
                 {formatDateTime(data.game.endDateTime).timeOnly}
               </p>
             </div>
-            <span className="relative z-10 rounded-full bg-gray-50 px-3 py-1.5 font-medium text-gray-600 hover:bg-gray-100">
+            <div>
               <Badge>Need Fix</Badge>
-            </span>
+            </div>
           </div>
           <div className="group relative">
             <h3 className="mt-3 text-lg font-semibold leading-6 text-gray-900 group-hover:text-gray-600">
@@ -62,9 +78,25 @@ const Card = ({ data }: dataType) => {
               {data.game.description}
             </p>
           </div>
+          {hasOrderLink && (
+            <Link
+              href={`/orders?eventId=${data.game.id}`}
+              className="flex gap-2"
+            >
+              <p className="text-primary-500">Order Details</p>
+              <Image
+                src="/assets/icons/arrow.svg"
+                alt="search"
+                width={10}
+                height={10}
+              />
+            </Link>
+          )}
           <div className="relative mt-8 flex items-center gap-x-4">
-            <img
+            <Image
               src={data.user.image}
+              height={40}
+              width={40}
               alt=""
               className="h-10 w-10 rounded-full bg-gray-100"
             />
