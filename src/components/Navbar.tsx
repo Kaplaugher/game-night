@@ -12,6 +12,8 @@ function classNames(...classes) {
 const routes = [
   { name: "Find Games", href: "/games" },
   { name: "Find GMs", href: "/gms" },
+  { name: "Create Game", href: "/games/create" },
+  { name: "Profile", href: "/profile" },
 ];
 
 export default function Navbar() {
