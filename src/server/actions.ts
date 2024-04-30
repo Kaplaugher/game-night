@@ -1,8 +1,7 @@
 "use server";
-import { eq } from "drizzle-orm";
+import { and, eq, not } from "drizzle-orm";
 import { revalidatePath } from "next/cache";
 import "server-only";
-import { handleError } from "~/lib/utils";
 import { db } from "~/server/db";
 import { gameTypes, games, users } from "~/server/db/schema";
 import { DeleteGameParams } from "~/types";
@@ -89,6 +88,25 @@ export const getGames = async ({ query, pageSize = 6, page = 1, gameType }) => {
   const allGames = await db
     .select()
     .from(games)
+    .orderBy(games.createdAt)
+    .limit(pageSize)
+    .offset((page - 1) * pageSize)
+    .leftJoin(users, eq(games.organizer, users.clerkId));
+  return allGames;
+};
+
+export const getRelatedGames = async ({
+  query,
+  pageSize = 6,
+  page = 1,
+  gameType,
+  id,
+}) => {
+  const allGames = await db
+    .select()
+    .from(games)
+    .where(and(eq(games.gameType, gameType), not(eq(games.id, id))))
+
     .orderBy(games.createdAt)
     .limit(pageSize)
     .offset((page - 1) * pageSize)

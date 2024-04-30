@@ -34,7 +34,7 @@ const Card = ({ data, hasOrderLink, hidePrice }: CardProps) => {
   const { userId } = auth();
   const isEventCreator = userId === data.game.organizer;
   return (
-    <div>
+    <div className="rounded-xl border-2 p-2 shadow-xl">
       <article
         key={data.game.id}
         className=" flex flex-col items-start justify-between"
@@ -63,7 +63,7 @@ const Card = ({ data, hasOrderLink, hidePrice }: CardProps) => {
               <DeleteConfirmation gameId={data.game.id} />
             </div>
           )}
-          <div className="absolute inset-0 rounded-2xl ring-1 ring-inset ring-gray-900/10" />
+          <div className="absolute inset-0 rounded-2xl ring-inset ring-gray-900/10" />
         </div>
         <div>
           {!hidePrice && (
