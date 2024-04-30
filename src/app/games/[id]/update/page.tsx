@@ -1,9 +1,18 @@
 import GameForm from "~/components/shared/GameForm";
 import { auth } from "@clerk/nextjs/server";
+import { getGameById } from "~/server/actions";
 
-const UpdateGame = async () => {
+type UpdateGameProps = {
+  params: {
+    id: string;
+  };
+};
+
+const UpdateGame = async ({ params: { id } }: UpdateGameProps) => {
   // Get the userId from auth() -- if null, the user is not signed in
   const { userId } = auth();
+  const [{ game }] = await getGameById(id);
+  console.log(game);
 
   return (
     <>
@@ -14,7 +23,7 @@ const UpdateGame = async () => {
       </section>
 
       <div className="wrapper my-8">
-        <GameForm userId={userId} type="Update" />
+        <GameForm type="update" game={game} gameId={game.id} userId={userId} />
       </div>
     </>
   );

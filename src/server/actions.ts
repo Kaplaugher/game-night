@@ -44,6 +44,20 @@ export const createGame = async ({ game, userId, path }: CreateGameParams) => {
   }
 };
 
+export const updateGame = async ({ game, path, gameId }: CreateGameParams) => {
+  try {
+    const updatedGame = await db
+      .update(games)
+      .set(game)
+      .where(eq(games.id, gameId))
+      .returning();
+    revalidatePath(path);
+    return JSON.parse(JSON.stringify(updatedGame[0]));
+  } catch (error) {
+    console.error(error);
+  }
+};
+
 // GET ONE GAME BY ID
 export async function getGameById(gameId: string) {
   try {

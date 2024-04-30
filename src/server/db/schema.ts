@@ -50,4 +50,5 @@ export const games = createTable("game", {
     .references(() => users.clerkId)
     .notNull(),
   gameType: serial("game_type").references(() => gameTypes.id),
+  location: varchar("location", { length: 256 }),
 });

@@ -22,17 +22,25 @@ import { FileUploader } from "./FileUploader";
 import DatePicker from "react-datepicker";
 
 import "react-datepicker/dist/react-datepicker.css";
-import { createGame } from "~/server/actions";
+import { createGame, updateGame } from "~/server/actions";
 import { useRouter } from "next/navigation";
 import { useUploadThing } from "~/lib/uploadthing";
 import { handleError } from "~/lib/utils";
+import type { Game } from "~/types";
 
 type GameFormProps = {
   userId: string | null;
   type: "create" | "update";
+  game?: Game;
+  gameId?: string;
 };
 
-export default function GameForm({ userId, type }: GameFormProps) {
+export default function GameForm({
+  userId,
+  type,
+  game,
+  gameId,
+}: GameFormProps) {
   const [files, setFiles] = useState<File[]>([]);
   const { startUpload } = useUploadThing("imageUploader");
   const router = useRouter();
@@ -43,7 +51,7 @@ export default function GameForm({ userId, type }: GameFormProps) {
     image: "",
     startDateTime: undefined,
     endDateTime: undefined,
-    gameType: "",
+    gameType: undefined,
     price: "",
     isFree: false,
     url: "",
@@ -51,7 +59,15 @@ export default function GameForm({ userId, type }: GameFormProps) {
   // 1. Define your form.
   const form = useForm<z.infer<typeof gameFormSchema>>({
     resolver: zodResolver(gameFormSchema),
-    defaultValues: initialFormValues,
+    defaultValues:
+      game && type === "update"
+        ? {
+            ...game,
+            startDateTime: new Date(game.startDateTime),
+            endDateTime: new Date(game.endDateTime),
+            gameType: game.gameType.toString(),
+          }
+        : initialFormValues,
   });
 
   // 2. Define a submit handler.
@@ -62,8 +78,6 @@ export default function GameForm({ userId, type }: GameFormProps) {
       if (!uploadedImages) {
         return;
       } else {
-        console.log("uploadedImages", uploadedImages);
-        console.log("image url", uploadedImages[0].url);
         uploadedImageUrl = uploadedImages[0].url;
       }
     }
@@ -77,6 +91,22 @@ export default function GameForm({ userId, type }: GameFormProps) {
         if (newGame) {
           form.reset();
           router.push(`/games/${newGame.id}`);
+        }
+      } catch (error) {
+        handleError(error);
+      }
+    }
+    if (type === "update") {
+      if (!game.id) router.back();
+      try {
+        const updatedGame = await updateGame({
+          game: { ...values, image: uploadedImageUrl },
+          path: `/games/${game.id}`,
+          gameId,
+        });
+        if (updatedGame) {
+          form.reset();
+          router.push(`/games/${updatedGame.id}`);
         }
       } catch (error) {
         handleError(error);
